@@ -1,4 +1,5 @@
 const app = require('express')()
+const cors = require('cors')
 const { initializeDB } = require('../db/config')
 const { getVendors, postVendor, getVendorById } = require('./routes/vendor')
 const {
@@ -8,6 +9,8 @@ const {
 } = require('./routes/customer')
 
 initializeDB()
+
+app.use(cors())
 
 //Vendor GET Routes
 // GET /api/v1/vendors	get all vendors
