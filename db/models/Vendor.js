@@ -16,11 +16,23 @@ Vendor.init(
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
+		customerId: {
+			type: DataTypes.INTEGER,
+			reference: {
+				model: 'Customer',
+				key: 'id',
+			},
+		},
+		orderId: {
+			type: DataTypes.INTEGER,
+			reference: {
+				model: 'Order',
+				key: 'id',
+			},
+		},
 	},
 	{ sequelize, modelName: 'vendor' },
 )
 
 module.exports = Vendor
 
-Vendor.hasMany(Customer, { as: 'customers' })
-Vendor.hasMany(Order, { through: Customer })
