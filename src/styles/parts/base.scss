@@ -5,9 +5,19 @@
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
-    color: #333;
-    background-color: #fff;
+	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
+	line-height: 1.5;
+	color: #333;
+	background-color: #fff;
+}
+
+
+.flex-col {
+	display: flex;
+	flex-direction: column;
+	gap: 1.1rem;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
 }
