@@ -1,5 +1,7 @@
 const { DataTypes, Model } = require('sequelize')
-const {sequelize} = require('../config')
+const { sequelize } = require('../config')
+const Order = require('./Order')
+const Customer = require('./Customer')
 
 class Suit extends Model {}
 
@@ -28,17 +30,11 @@ Suit.init(
 		waistcoat_img: {
 			type: DataTypes.STRING,
 		},
-		orderId: {
-			type: DataTypes.INTEGER,
-			reference: {
-				model: 'Order',
-                key: 'id',
-			},
-		},
 	},
 	{ sequelize, modelName: 'suit' },
 )
 
 module.exports = Suit
 
-Suit.belongsTo(require('./Order'))
+Suit.belongsTo(Order)
+Suit.belongsTo(Customer, { through: Order })

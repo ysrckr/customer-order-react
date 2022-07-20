@@ -1,5 +1,7 @@
 const { DataTypes, Model } = require('sequelize')
-const {sequelize} = require('../config')
+const { sequelize } = require('../config')
+const Customer = require('./Customer')
+const Order = require('./Order')
 
 class Vendor extends Model {}
 
@@ -14,17 +16,11 @@ Vendor.init(
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
-		customersId: {
-			type: DataTypes.INTEGER,
-			reference: {
-				model: 'Customer',
-				key: 'id',
-			},
-		},
 	},
 	{ sequelize, modelName: 'vendor' },
 )
 
 module.exports = Vendor
 
-Vendor.hasMany(require('./Customer'))
+Vendor.hasMany(Customer, { as: 'customers' })
+Vendor.hasMany(Order, { through: Customer })

@@ -23,6 +23,7 @@ const getVendorById = router.get('/vendors/:id', async (req, res) => {
 		res.status(500).json({ error: error.message })
 	}
 })
+
 // GET /api/v1/vendors/:id/customers	get all customers of vendor by id
 const getCustomersByVendorId = router.get(
 	'/vendors/:id/customers',
@@ -37,6 +38,7 @@ const getCustomersByVendorId = router.get(
 		}
 	},
 )
+
 
 // POST /api/v1/vendors create a new vendor
 const postVendor = router.post('/', async (req, res) => {
