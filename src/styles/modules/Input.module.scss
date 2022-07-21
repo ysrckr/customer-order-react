@@ -1,0 +1,17 @@
+.input {
+	width: 110%;
+	padding: 0.7rem;
+	border-radius: 0.8rem;
+	border: 1px solid #ccc;
+	border-radius: 0.25rem;
+	font-size: 1rem;
+	font-family: inherit;
+	font-weight: inherit;
+	color: inherit;
+	background-color: #fff;
+	transition: border-color 0.2s ease-in-out;
+	&:focus {
+		outline: none;
+		border-color: rgb(188, 38, 38);
+	}
+}
