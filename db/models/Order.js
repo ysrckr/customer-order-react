@@ -12,33 +12,16 @@ Order.init(
 			primaryKey: true,
 			autoIncrement: true,
 		},
-		customerId: {
-			type: DataTypes.INTEGER,
-			reference: {
-				model: 'Customer',
-				key: 'id',
-			},
-			allowNull: false,
-		},
-		suitId: {
-			type: DataTypes.INTEGER,
-			reference: {
-				model: 'Suit',
-				key: 'id',
-				allowNull: false,
-			},
-		},
-		vendorId: {
-			type: DataTypes.INTEGER,
-			reference: {
-				model: 'Vendor',
-				key: 'id',
-				allowNull: false,
-			},
-		},
 	},
 	{ sequelize, modelName: 'order' },
 )
 
 module.exports = Order
 
+Order.hasMany(Suit, {
+	foreignKey: {
+		name: 'orderId',
+		allowNull: false,
+	},
+})
+Suit.belongsTo(Order)

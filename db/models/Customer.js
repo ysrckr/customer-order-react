@@ -20,28 +20,6 @@ Customer.init(
 		size: {
 			type: DataTypes.INTEGER,
 		},
-		vendorId: {
-			type: DataTypes.INTEGER,
-			reference: {
-				model: 'Vendor',
-				key: 'id',
-			},
-			allowNull: false,
-		},
-		orderId : {
-			type: DataTypes.INTEGER,
-			reference: {
-				model: 'Order',
-				key: 'id',
-			},
-		},
-		suitId : {
-			type: DataTypes.INTEGER,
-			reference: {
-				model: 'Suit',
-				key: 'id',
-			},
-		}
 
 	},
 	{ sequelize, modelName: 'customer' },
@@ -49,4 +27,7 @@ Customer.init(
 
 module.exports = Customer
 
-
+Customer.hasMany(Order, {
+	foreignKey: 'customerId'
+})
+Order.belongsTo(Customer)

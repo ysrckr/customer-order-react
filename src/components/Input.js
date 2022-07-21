@@ -14,3 +14,12 @@ const Input = ({ type, placeholder, value, changeHandler }) => {
 	)
 }
 export default Input
+
+Input.defaultProps = {
+	type: 'text',
+	placeholder: '',
+	value: '',
+	changeHandler: (e) => {
+		console.log(e.target.value)
+	},
+}

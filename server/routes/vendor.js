@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Vendor = require('../../db/models/Vendor')
+const Customer = require('../../db/models/Customer')
 
 // GET /api/v1/vendors	get all vendors
 const getVendors = router.get('/vendors', async (req, res) => {
@@ -29,8 +30,12 @@ const getCustomersByVendorId = router.get(
 	'/vendors/:id/customers',
 	async (req, res) => {
 		try {
-			const vendor = await Vendor.findByPk(req.params.id)
-			const customers = await vendor.getCustomers()
+			
+			const vendor = await Vendor.findByPk(req.params.id, {
+				include: [{ model: Customer }],
+			})
+			const customers = vendor.customers
+
 			res.status(200).json({ customers })
 		} catch (error) {
 			console.error(error)
@@ -39,9 +44,8 @@ const getCustomersByVendorId = router.get(
 	},
 )
 
-
 // POST /api/v1/vendors create a new vendor
-const postVendor = router.post('/', async (req, res) => {
+const postVendor = router.post('/vendors', async (req, res) => {
 	const { name } = req.body
 	try {
 		const vendor = await Vendor.create({

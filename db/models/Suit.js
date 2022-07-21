@@ -30,26 +30,9 @@ Suit.init(
 		waistcoat_img: {
 			type: DataTypes.STRING,
 		},
-		orderId: {
-			type: DataTypes.INTEGER,
-			reference: {
-				model: Order,
-				key: 'id',
-				allowNull: false,
-			},
-		},
-		customerId: {
-			type: DataTypes.INTEGER,
-			reference: {
-				model: Customer,
-				key: 'id',
-				allowNull: false,
-			},
-		},
 	},
 	{ sequelize, modelName: 'suit' },
 )
 
 module.exports = Suit
-
 

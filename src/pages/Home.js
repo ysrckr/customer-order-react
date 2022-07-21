@@ -1,17 +1,14 @@
 import Layout from 'components/layout/Layout'
 import Select from 'react-select'
-import Input from 'components/Input'
-import Form from 'components/Form'
-import Button from 'components/Button'
 import axios from 'axios'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useLayoutEffect } from 'react'
 
 const Home = () => {
 	axios.defaults.baseURL = 'http://localhost:5001/api/v1/'
 	const [vendorsOptions, setVendorsOptions] = useState([])
 	const [customersOptions, setCustomersOptions] = useState([])
-	const [selectedVendorOption, setSelectedVendorOption] = useState(null)
-	const [selectedCustomerOption, setSelectedCustomerOption] = useState(null)
+	const [selectedVendorOption, setSelectedVendorOption] = useState('')
+	const [selectedCustomerOption, setSelectedCustomerOption] = useState('')
 	const changeVendorHandler = selectedOption => {
 		setSelectedVendorOption(selectedOption)
 	}
@@ -41,35 +38,36 @@ const Home = () => {
 		axios
 			.get('vendors')
 			.then(res => {
-				res.data.vendors.forEach(element => {
-					setVendorsOptions([
-						{ value: element.id, label: element.name },
-					])
+				const vendors = res.data.vendors
+				const vendor = vendors?.map(vendor => {
+					return {
+						value: vendor.id,
+						label: vendor.name,
+					}
 				})
-			})
-			.catch(err => {
-				console.log(err)
-			})
-		axios
-			.get('customers')
-			.then(res => {
-				res.data.customers.forEach(element => {
-					setCustomersOptions([
-						{
-							value: element.id,
-							label: element.name,
-							size: element.size,
-							vendorId: element.vendorId,
-							orderId: element.orderId,
-							suitId: element.suitId,
-						},
-					])
-				})
+				setVendorsOptions([...vendor])
 			})
 			.catch(err => {
 				console.log(err)
 			})
 	}, [])
+	useLayoutEffect(() => {
+		if (!selectedVendorOption) {
+			return
+		}
+		axios
+			.get(`vendors/${selectedVendorOption.value}/customers`)
+			.then(res => {
+				const customers = res.data.customers
+				const customer = customers?.map(element => {
+					return { value: element.id, label: element.name }
+				})
+				setCustomersOptions([...customer])
+			})
+			.catch(err => {
+				console.log(err)
+			})
+	}, [selectedVendorOption])
 	return (
 		<Layout>
 			<h1>Home</h1>
@@ -80,22 +78,15 @@ const Home = () => {
 				onChange={changeVendorHandler}
 				placeholder="Select a Vendor..."
 			/>
-			<Select
-				options={customersOptions}
-				styles={customStyles}
-				value={selectedCustomerOption}
-				onChange={changeCustomerHandler}
-				placeholder="Select a Customer..."
-			/>
-			<Form>
-				{selectedCustomerOption ? (
-					''
-				) : (
-					<Input placeholder={'Customer Name'} />
-				)}
-
-				<Button label="Order" />
-			</Form>
+			{selectedVendorOption && (
+				<Select
+					options={customersOptions}
+					styles={customStyles}
+					value={selectedCustomerOption}
+					onChange={changeCustomerHandler}
+					placeholder="Select a Customer..."
+				/>
+			)}
 		</Layout>
 	)
 }
