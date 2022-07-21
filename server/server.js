@@ -1,5 +1,6 @@
 const app = require('express')()
 const cors = require('cors')
+const bodyParser = require('body-parser')
 const { initializeDB } = require('../db/config')
 const { getVendors, postVendor, getVendorById } = require('./routes/vendor')
 const {
@@ -9,7 +10,8 @@ const {
 } = require('./routes/customer')
 
 initializeDB()
-
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 app.use(cors())
 
 //Vendor GET Routes
