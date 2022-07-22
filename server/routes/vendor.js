@@ -30,7 +30,6 @@ const getCustomersByVendorId = router.get(
 	'/vendors/:id/customers',
 	async (req, res) => {
 		try {
-			
 			const vendor = await Vendor.findByPk(req.params.id, {
 				include: [{ model: Customer }],
 			})
@@ -58,9 +57,22 @@ const postVendor = router.post('/vendors', async (req, res) => {
 	}
 })
 
+// DELETE /api/v1/vendors/:id
+const deleteVendor = router.delete('/vendors/:id', async (req, res) => {
+	try {
+		const vendor = await Vendor.findByPk(req.params.id)
+		await vendor.destroy()
+		res.status(204).json({})
+	} catch (error) {
+		console.error(error)
+		res.status(500).json({ error: error.message })
+	}
+})
+
 module.exports = {
 	getVendors,
 	postVendor,
 	getVendorById,
 	getCustomersByVendorId,
+	deleteVendor,
 }
