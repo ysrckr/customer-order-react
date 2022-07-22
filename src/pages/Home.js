@@ -1,6 +1,8 @@
 import Layout from 'components/layout/Layout'
 import Select from 'react-select'
 import axios from 'axios'
+import Form from 'components/Form'
+import Input from 'components/Input'
 import { useState, useEffect, useLayoutEffect } from 'react'
 
 const Home = () => {
@@ -9,11 +11,27 @@ const Home = () => {
 	const [customersOptions, setCustomersOptions] = useState([])
 	const [selectedVendorOption, setSelectedVendorOption] = useState('')
 	const [selectedCustomerOption, setSelectedCustomerOption] = useState('')
+	const [customerSize, setCustomerSize] = useState('')
+	const [jacketDesc, setJacketDesc] = useState('')
+	const [pantsDesc, setPantsDesc] = useState('')
+	const [waistcoatDesc, setWaistcoatDesc] = useState('')
 	const changeVendorHandler = selectedOption => {
 		setSelectedVendorOption(selectedOption)
 	}
 	const changeCustomerHandler = selectedOption => {
 		setSelectedCustomerOption(selectedOption)
+	}
+	const changeCustomerSizeHandler = e => {
+		setCustomerSize(e.target.value)
+	}
+	const changeJacketDescHandler = e => {
+		setJacketDesc(e.target.value)
+	}
+	const changePantsDescHandler = e => {
+		setPantsDesc(e.target.value)
+	}
+	const changeWaistcoatDescHandler = e => {
+		setWaistcoatDesc(e.target.value)
 	}
 	const customStyles = {
 		option: (provided, state) => ({
@@ -87,6 +105,41 @@ const Home = () => {
 					placeholder="Select a Customer..."
 				/>
 			)}
+			<Form>
+				{selectedVendorOption && selectedCustomerOption && (
+					<Input
+						input={true}
+						type="number"
+						placeholder="Customer Size"
+						value={customerSize}
+						changeHandler={changeCustomerSizeHandler}
+					/>
+				)}
+
+				<Input
+					title="Jacket"
+					input={false}
+					placeholder="Jacket Desc"
+					value={jacketDesc}
+					changeHandler={changeJacketDescHandler}
+				/>
+
+				<Input
+					title="Pants"
+					input={false}
+					placeholder="Pants Desc"
+					value={pantsDesc}
+					changeHandler={changePantsDescHandler}
+				/>
+
+				<Input
+					title="Waistcoat"
+					input={false}
+					placeholder="Waistcoat Desc"
+					value={waistcoatDesc}
+					changeHandler={changeWaistcoatDescHandler}
+				/>
+			</Form>
 		</Layout>
 	)
 }
