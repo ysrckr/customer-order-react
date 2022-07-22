@@ -20,7 +20,39 @@ Customer.init(
 		size: {
 			type: DataTypes.INTEGER,
 		},
-
+		jacket_length: {
+			type: DataTypes.FLOAT,
+		},
+		chest: {
+			type: DataTypes.FLOAT,
+		},
+		jacket_waist: {
+			type: DataTypes.FLOAT,
+		},
+		shoulder: {
+			type: DataTypes.FLOAT,
+		},
+		sleeve: {
+			type: DataTypes.FLOAT,
+		},
+		bicep: {
+			type: DataTypes.FLOAT,
+		},
+		crotch: {
+			type: DataTypes.FLOAT,
+		},
+		pants_waist: {
+			type: DataTypes.FLOAT,
+		},
+		pants_length: {
+			type: DataTypes.FLOAT,
+		},
+		hip: {
+			type: DataTypes.FLOAT,
+		},
+		knee: {
+			type: DataTypes.FLOAT,
+		},
 	},
 	{ sequelize, modelName: 'customer' },
 )
@@ -28,6 +60,6 @@ Customer.init(
 module.exports = Customer
 
 Customer.hasMany(Order, {
-	foreignKey: 'customerId'
+	foreignKey: 'customerId',
 })
 Order.belongsTo(Customer)

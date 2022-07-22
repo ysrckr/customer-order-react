@@ -11,7 +11,7 @@ const Home = () => {
 	const [customersOptions, setCustomersOptions] = useState([])
 	const [selectedVendorOption, setSelectedVendorOption] = useState('')
 	const [selectedCustomerOption, setSelectedCustomerOption] = useState('')
-	const [customerSize, setCustomerSize] = useState('')
+	
 	const [jacketDesc, setJacketDesc] = useState('')
 	const [pantsDesc, setPantsDesc] = useState('')
 	const [waistcoatDesc, setWaistcoatDesc] = useState('')
@@ -21,9 +21,7 @@ const Home = () => {
 	const changeCustomerHandler = selectedOption => {
 		setSelectedCustomerOption(selectedOption)
 	}
-	const changeCustomerSizeHandler = e => {
-		setCustomerSize(e.target.value)
-	}
+	
 	const changeJacketDescHandler = e => {
 		setJacketDesc(e.target.value)
 	}
@@ -106,16 +104,7 @@ const Home = () => {
 				/>
 			)}
 			<Form>
-				{selectedVendorOption && selectedCustomerOption && (
-					<Input
-						input={true}
-						type="number"
-						placeholder="Customer Size"
-						value={customerSize}
-						name="customerSize"
-						changeHandler={changeCustomerSizeHandler}
-					/>
-				)}
+			
 
 				<Input
 					title="Jacket"

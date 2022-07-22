@@ -8,6 +8,7 @@ const Input = ({
 	input,
 	title,
 	name,
+	step,
 }) => {
 	return (
 		<div>
@@ -20,6 +21,7 @@ const Input = ({
 					value={value}
 					name={name}
 					onChange={changeHandler}
+					step={step}
 				/>
 			) : (
 				<textarea
@@ -41,6 +43,7 @@ Input.defaultProps = {
 	type: 'text',
 	placeholder: '',
 	value: '',
+	step: '1',
 	changeHandler: e => {
 		console.log(e.target.value)
 	},
