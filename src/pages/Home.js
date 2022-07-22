@@ -112,6 +112,7 @@ const Home = () => {
 						type="number"
 						placeholder="Customer Size"
 						value={customerSize}
+						name="customerSize"
 						changeHandler={changeCustomerSizeHandler}
 					/>
 				)}
@@ -121,6 +122,7 @@ const Home = () => {
 					input={false}
 					placeholder="Jacket Desc"
 					value={jacketDesc}
+					name="jacketDesc"
 					changeHandler={changeJacketDescHandler}
 				/>
 
@@ -129,6 +131,7 @@ const Home = () => {
 					input={false}
 					placeholder="Pants Desc"
 					value={pantsDesc}
+					name="pantsDesc"
 					changeHandler={changePantsDescHandler}
 				/>
 
@@ -137,6 +140,7 @@ const Home = () => {
 					input={false}
 					placeholder="Waistcoat Desc"
 					value={waistcoatDesc}
+					name="waistcoatDesc"
 					changeHandler={changeWaistcoatDescHandler}
 				/>
 			</Form>

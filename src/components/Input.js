@@ -1,6 +1,14 @@
 import styles from 'styles/modules/Input.module.scss'
 
-const Input = ({ type, placeholder, value, changeHandler, input, title }) => {
+const Input = ({
+	type,
+	placeholder,
+	value,
+	changeHandler,
+	input,
+	title,
+	name,
+}) => {
 	return (
 		<div>
 			{title && <h3 className={styles.title}>{title}</h3>}
@@ -10,6 +18,7 @@ const Input = ({ type, placeholder, value, changeHandler, input, title }) => {
 					type={type}
 					placeholder={`Enter ${placeholder}...`}
 					value={value}
+					name={name}
 					onChange={changeHandler}
 				/>
 			) : (
@@ -17,6 +26,7 @@ const Input = ({ type, placeholder, value, changeHandler, input, title }) => {
 					className={styles.input}
 					placeholder={`Enter ${placeholder}...`}
 					value={value}
+					name={name}
 					onChange={changeHandler}
 				/>
 			)}
