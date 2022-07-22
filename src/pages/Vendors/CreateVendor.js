@@ -4,6 +4,7 @@ import Input from 'components/Input'
 import axios from 'axios'
 import { useState, useEffect, useRef } from 'react'
 import List from 'components/List'
+import Button from 'components/Button'
 const CreateVendor = () => {
 	axios.defaults.baseURL = 'http://localhost:5001/api/v1/'
 	const [vendor, setVendor] = useState('')
@@ -62,6 +63,7 @@ const CreateVendor = () => {
 					changeHandler={getVendorHandler}
 					name="vendorName"
 				/>
+				<Button type="submit" label="Create Vendor" />
 			</Form>
 			<List
 				list={vendorList}

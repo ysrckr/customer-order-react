@@ -5,6 +5,7 @@ import List from 'components/List'
 import Select from 'react-select'
 import axios from 'axios'
 import { useState, useEffect, useRef } from 'react'
+import Button from 'components/Button'
 const CreateCustomer = () => {
 	axios.defaults.baseURL = 'http://localhost:5001/api/v1/'
 	const [customer, setCustomer] = useState('')
@@ -112,6 +113,7 @@ const CreateCustomer = () => {
 					changeHandler={getCustomerHandler}
 					name="customerName"
 				/>
+				<Button type="submit" label='Create Customer'/>
 			</Form>
 			<List
 				list={customerList}
