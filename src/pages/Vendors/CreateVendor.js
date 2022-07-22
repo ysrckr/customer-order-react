@@ -38,9 +38,18 @@ const CreateVendor = () => {
 		setVendor('')
 		isReady.current = true
 	}
-	const deleteVendor = e => {
-		console.log(e.target)
+	const deleteVendor = id => {
+		isReady.current = false
+		axios
+			.delete(`vendors/${id}`)
+			.then(res => {
+				setVendorList(vendorList.filter(vendor => vendor.id !== id))
+			})
+			.catch(err => {
+				console.log(err)
+			})
 	}
+	isReady.current = true
 
 	return (
 		<Layout>

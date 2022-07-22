@@ -4,20 +4,20 @@ const List = ({ list, title, deleteHandler }) => {
 	return (
 		<div>
 			{list.length > 0 && <h3 className={styles.title}>{title}</h3>}
-			<ul>
+			<ul className={styles.flex}>
 				{list?.map(item => {
 					return (
-						<div key={item.id} className={styles.backdrop}>
-							<li className={styles.list}>
-								{item.name}
-								<span
-									data-id={item.id}
-									onClick={e => console.log(e.target)}
-									className={styles.deleteButton}>
-									<FaTrashAlt />
-								</span>
-							</li>
-						</div>
+						<li
+							key={item.id}
+							className={styles.list}
+							data-id={item.id}>
+							<span className={styles.text}>{item.name}</span>
+							<span
+								className={styles.deleteButton}
+								onClick={() => deleteHandler(item.id)}>
+								<FaTrashAlt />
+							</span>
+						</li>
 					)
 				})}
 			</ul>
