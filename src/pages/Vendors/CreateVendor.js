@@ -2,11 +2,24 @@ import Layout from 'components/layout/Layout'
 import Form from 'components/Form'
 import Input from 'components/Input'
 import axios from 'axios'
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import List from 'components/List'
 const CreateVendor = () => {
 	axios.defaults.baseURL = 'http://localhost:5001/api/v1/'
 	const [vendor, setVendor] = useState('')
 	const [vendorList, setVendorList] = useState([])
+	const isReady = useRef(true)
+	useEffect(() => {
+		axios
+			.get('vendors')
+			.then(res => {
+				setVendorList(res.data.vendors)
+			})
+			.catch(err => {
+				console.log(err)
+			})
+		isReady.current = false
+	}, [isReady])
 	const getVendorHandler = e => {
 		setVendor(e.target.value)
 	}
@@ -23,7 +36,12 @@ const CreateVendor = () => {
 				console.log(err)
 			})
 		setVendor('')
+		isReady.current = true
 	}
+	const deleteVendor = e => {
+		console.log(e.target)
+	}
+
 	return (
 		<Layout>
 			<h1>Create A Vendor</h1>
@@ -36,13 +54,11 @@ const CreateVendor = () => {
 					name="vendorName"
 				/>
 			</Form>
-			<div>
-				<ul>
-					{vendorList.map(vendor => {
-						return <li key={vendor.id}>{vendor.name}</li>
-					})}
-				</ul>
-			</div>
+			<List
+				list={vendorList}
+				title="Vendors"
+				deleteHandler={deleteVendor}
+			/>
 		</Layout>
 	)
 }

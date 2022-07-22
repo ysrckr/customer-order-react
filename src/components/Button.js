@@ -1,7 +1,7 @@
-const Button = ({ label }) => {
+const Button = ({ label,type }) => {
 	return (
 		<div>
-			<button className="btn">{label}</button>
+			<button type={type} className="btn">{label}</button>
 		</div>
 	)
 }
