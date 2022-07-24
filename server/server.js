@@ -2,6 +2,7 @@ const app = require('express')()
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const { initializeDB } = require('../db/config')
+const { uploadImage } = require('./cloudinary')
 const {
 	getVendors,
 	postVendor,

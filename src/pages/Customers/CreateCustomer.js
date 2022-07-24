@@ -5,7 +5,7 @@ import List from 'components/List'
 import styles from 'styles/modules/CreateCustomer.module.scss'
 import Select from 'react-select'
 import axios from 'axios'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import Button from 'components/Button'
 const CreateCustomer = () => {
 	axios.defaults.baseURL = 'http://localhost:5001/api/v1/'
@@ -26,7 +26,6 @@ const CreateCustomer = () => {
 	const [hip, setHip] = useState('')
 	const [knee, setKnee] = useState('')
 
-	const isReady = useRef(true)
 	useEffect(() => {
 		axios
 			.get('vendors')
@@ -43,7 +42,9 @@ const CreateCustomer = () => {
 			.catch(err => {
 				console.log(err)
 			})
+
 		if (!vendorList) return
+
 		axios
 			.get('customers')
 			.then(res => {
@@ -52,8 +53,8 @@ const CreateCustomer = () => {
 			.catch(err => {
 				console.log(err)
 			})
-		isReady.current = false
-	}, [isReady])
+	}, [])
+
 	const changeCustomerSizeHandler = e => {
 		setCustomerSize(e.target.value)
 	}
@@ -69,6 +70,18 @@ const CreateCustomer = () => {
 			.post('customers', {
 				name: customer,
 				vendorId: selectedVendor.value,
+				size: customerSize,
+				jacket_length: jacketLength,
+				chest,
+				jacket_waist: jacketWaist,
+				shoulder,
+				sleeve,
+				bicep,
+				crotch,
+				pants_length: pantsLength,
+				pants_waist: pantsWaist,
+				hip,
+				knee,
 			})
 			.then(res => {
 				setCustomerList([...customerList, res.data.customer])
@@ -78,21 +91,29 @@ const CreateCustomer = () => {
 			})
 		setSelectedVendor('')
 		setCustomer('')
-		isReady.current = true
+		setCustomerSize('')
+		setJacketLength('')
+		setChest('')
+		setJacketWaist('')
+		setShoulder('')
+		setSleeve('')
+		setBicep('')
+		setCrotch('')
+		setPantsLength('')
+		setPantsWaist('')
+		setHip('')
+		setKnee('')
 	}
 	const deleteCustomer = id => {
-		isReady.current = false
 		axios
 			.delete(`customers/${id}`)
-			.then(res => {
-				setCustomerList(
-					customerList.filter(customer => customer.id !== id),
-				)
-			})
+			.then(res => {})
 			.catch(err => {
 				console.log(err)
 			})
+		setCustomerList(customerList.filter(customer => customer.id !== id))
 	}
+	useEffect(() => {})
 	const customStyles = {
 		option: (provided, state) => ({
 			...provided,
