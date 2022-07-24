@@ -4,7 +4,7 @@ const Vendor = require('../../db/models/Vendor')
 const Customer = require('../../db/models/Customer')
 
 // GET /api/v1/vendors	get all vendors
-const getVendors = router.get('/vendors', async (req, res) => {
+const getVendors = router.get('/', async (req, res) => {
 	try {
 		const vendors = await Vendor.findAll()
 		res.status(200).json({ vendors })
@@ -15,7 +15,7 @@ const getVendors = router.get('/vendors', async (req, res) => {
 })
 
 // GET /api/v1/vendors/:id	get vendor by id
-const getVendorById = router.get('/vendors/:id', async (req, res) => {
+const getVendorById = router.get('/:id', async (req, res) => {
 	try {
 		const vendor = await Vendor.findByPk(req.params.id)
 		res.status(200).json({ vendor })
@@ -27,7 +27,7 @@ const getVendorById = router.get('/vendors/:id', async (req, res) => {
 
 // GET /api/v1/vendors/:id/customers	get all customers of vendor by id
 const getCustomersByVendorId = router.get(
-	'/vendors/:id/customers',
+	'/:id/customers',
 	async (req, res) => {
 		try {
 			const vendor = await Vendor.findByPk(req.params.id, {
@@ -44,7 +44,7 @@ const getCustomersByVendorId = router.get(
 )
 
 // POST /api/v1/vendors create a new vendor
-const postVendor = router.post('/vendors', async (req, res) => {
+const postVendor = router.post('/', async (req, res) => {
 	const { name } = req.body
 	try {
 		const vendor = await Vendor.create({
@@ -58,7 +58,7 @@ const postVendor = router.post('/vendors', async (req, res) => {
 })
 
 // DELETE /api/v1/vendors/:id
-const deleteVendor = router.delete('/vendors/:id', async (req, res) => {
+const deleteVendor = router.delete('/:id', async (req, res) => {
 	try {
 		const vendor = await Vendor.findByPk(req.params.id)
 		await vendor.destroy()

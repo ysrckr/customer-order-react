@@ -1,49 +1,54 @@
 const app = require('express')()
+// cors middleware
 const cors = require('cors')
+//Body parser middleware
 const bodyParser = require('body-parser')
+// DB connection
 const { initializeDB } = require('../db/config')
-const { uploadImage } = require('./cloudinary')
+
+// Vendor routes
 const {
 	getVendors,
 	postVendor,
 	getVendorById,
 	deleteVendor,
 } = require('./routes/vendor')
+// Customer routes
 const {
 	getCustomers,
 	postCustomer,
 	getCustomerById,
+	deleteCustomer,
 } = require('./routes/customer')
 
+// DB Connection
 initializeDB()
+// Body parser middleware
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
+// cors middleware
 app.use(cors())
 
-//Vendor GET Routes
 // GET /api/v1/vendors	get all vendors
-app.use('/api/v1/', getVendors)
 // GET /api/v1/vendors/:id	get vendor by id
-app.use('/api/v1/', getVendorById)
-
-//Vendor POST Routes
 // POST /api/v1/vendors create a new vendor
-app.use('/api/v1/', postVendor)
-
-//Vendor DELETE Route
 // DELETE /api/v1/vendors/:id
-app.use('/api/v1/', deleteVendor)
+app.use('/api/v1/vendors', getVendors, getVendorById, postVendor, deleteVendor)
 
-//Customer GET Routes
 // GET /api/v1/customers	get all customers
-app.use('/api/v1/', getCustomers)
 // GET /api/v1/customers/:id	get customer by id
-app.use('/api/v1/', getCustomerById)
 // POST /api/v1/customers create a new customer
-app.use('/api/v1/', postCustomer)
+app.use(
+	'/api/v1/customers',
+	getCustomers,
+	getCustomerById,
+	postCustomer,
+	deleteCustomer,
+)
 
 const PORT = process.env.PORT || 5001
 
+// Start the server
 app.listen(PORT, () => {
 	console.log(`Server is running on port ${PORT}`)
 })

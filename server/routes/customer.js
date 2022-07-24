@@ -5,7 +5,7 @@ const Customer = require('../../db/models/Customer')
 
 // GET customers
 // GET /api/v1/customers
-const getCustomers = router.get('/customers', async (req, res) => {
+const getCustomers = router.get('/', async (req, res) => {
 	try {
 		const customers = await Customer.findAll()
 		res.status(200).json({ customers })
@@ -16,7 +16,7 @@ const getCustomers = router.get('/customers', async (req, res) => {
 })
 // GET customer by id
 // GET /api/v1/customers/:id
-const getCustomerById = router.get('/customers/:id', async (req, res) => {
+const getCustomerById = router.get('/:id', async (req, res) => {
 	try {
 		const customer = await Customer.findByPk(req.params.id)
 		res.status(200).json({ customer })
@@ -28,7 +28,7 @@ const getCustomerById = router.get('/customers/:id', async (req, res) => {
 
 // POST customer
 // POST /api/v1/customers
-const postCustomer = router.post('/customers', async (req, res) => {
+const postCustomer = router.post('/', async (req, res) => {
 	let {
 		name,
 		size,
@@ -88,7 +88,7 @@ const postCustomer = router.post('/customers', async (req, res) => {
 
 //DELETE customer
 // DELETE api/v1/customers/:id
-const deleteCustomer = router.delete('/customers/:id', async (req, res) => {
+const deleteCustomer = router.delete('/:id', async (req, res) => {
 	const { id } = req.params
 	try {
 		const customer = await Customer.findByPk(id)

@@ -4,6 +4,7 @@ import axios from 'axios'
 import Form from 'components/Form'
 import Input from 'components/Input'
 import { useState, useEffect, useLayoutEffect } from 'react'
+import FileUpload from 'components/FileUpload'
 
 const Home = () => {
 	axios.defaults.baseURL = 'http://localhost:5001/api/v1/'
@@ -11,17 +12,20 @@ const Home = () => {
 	const [customersOptions, setCustomersOptions] = useState([])
 	const [selectedVendorOption, setSelectedVendorOption] = useState('')
 	const [selectedCustomerOption, setSelectedCustomerOption] = useState('')
-	
+
 	const [jacketDesc, setJacketDesc] = useState('')
+	const [jacketImage, setJacketImage] = useState(null)
 	const [pantsDesc, setPantsDesc] = useState('')
+	const [pantsImage, setPantsImage] = useState(null)
 	const [waistcoatDesc, setWaistcoatDesc] = useState('')
+	const [waistcoatImage, setWaistcoatImage] = useState(null)
 	const changeVendorHandler = selectedOption => {
 		setSelectedVendorOption(selectedOption)
 	}
 	const changeCustomerHandler = selectedOption => {
 		setSelectedCustomerOption(selectedOption)
 	}
-	
+
 	const changeJacketDescHandler = e => {
 		setJacketDesc(e.target.value)
 	}
@@ -30,6 +34,39 @@ const Home = () => {
 	}
 	const changeWaistcoatDescHandler = e => {
 		setWaistcoatDesc(e.target.value)
+	}
+	const jacketImageHandler = e => {
+		let fileObj = {}
+		const files = Array.from(e.target.files)
+		files.forEach(file => {
+			fileObj = {
+				name: file.name,
+				file,
+			}
+		})
+		setJacketImage(fileObj)
+	}
+	const pantsImageHandler = e => {
+		let fileObj = {}
+		const files = Array.from(e.target.files)
+		files.forEach(file => {
+			fileObj = {
+				name: file.name,
+				file,
+			}
+		})
+		setPantsImage(fileObj)
+	}
+	const waistcoatImageHandler = e => {
+		let fileObj = {}
+		const files = Array.from(e.target.files)
+		files.forEach(file => {
+			fileObj = {
+				name: file.name,
+				file,
+			}
+		})
+		setWaistcoatImage(fileObj)
 	}
 	const customStyles = {
 		option: (provided, state) => ({
@@ -104,8 +141,6 @@ const Home = () => {
 				/>
 			)}
 			<Form>
-			
-
 				<Input
 					title="Jacket"
 					input={false}
@@ -113,6 +148,11 @@ const Home = () => {
 					value={jacketDesc}
 					name="jacketDesc"
 					changeHandler={changeJacketDescHandler}
+				/>
+				<FileUpload
+					fileHandler={pantsImageHandler}
+					file={jacketImage}
+					name="jacketPhoto"
 				/>
 
 				<Input
@@ -123,6 +163,11 @@ const Home = () => {
 					name="pantsDesc"
 					changeHandler={changePantsDescHandler}
 				/>
+				<FileUpload
+					fileHandler={jacketImageHandler}
+					file={pantsImage}
+					name="pantsPhoto"
+				/>
 
 				<Input
 					title="Waistcoat"
@@ -131,6 +176,11 @@ const Home = () => {
 					value={waistcoatDesc}
 					name="waistcoatDesc"
 					changeHandler={changeWaistcoatDescHandler}
+				/>
+				<FileUpload
+					fileHandler={waistcoatImageHandler}
+					file={waistcoatImage}
+					name="waistcoatPhoto"
 				/>
 			</Form>
 		</Layout>
