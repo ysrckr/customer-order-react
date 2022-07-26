@@ -20,6 +20,8 @@ const {
 	getCustomerById,
 	deleteCustomer,
 } = require('./routes/customer')
+// Order routes
+const { getOrders, createOrder } = require('./routes/order')
 
 // DB Connection
 initializeDB()
@@ -45,6 +47,8 @@ app.use(
 	postCustomer,
 	deleteCustomer,
 )
+
+app.use('/api/v1/orders', getOrders, createOrder)
 
 const PORT = process.env.PORT || 5001
 

@@ -21,7 +21,7 @@ const initializeDB = async () => {
 	try {
 		sequelize.authenticate()
 		console.log('Connection has been established successfully.')
-		sequelize.sync({ alter: true })
+		sequelize.sync({ force: true })
 	} catch (error) {
 		console.error('Unable to connect to the database:', error)
 	}

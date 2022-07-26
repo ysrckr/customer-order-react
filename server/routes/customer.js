@@ -1,13 +1,17 @@
 const express = require('express')
 const router = express.Router()
 const Customer = require('../../db/models/Customer')
-
+const Order = require('../../db/models/Order')
+const Vendor = require('../../db/models/Vendor')
 
 // GET customers
 // GET /api/v1/customers
 const getCustomers = router.get('/', async (req, res) => {
 	try {
-		const customers = await Customer.findAll()
+		const customers = await Customer.findAll({
+			include: [{ model: Order }, { model: Vendor }], // include the customer model in the query
+			// include the vendor model in the query
+		})
 		res.status(200).json({ customers })
 	} catch (error) {
 		console.error(error)
@@ -58,7 +62,6 @@ const postCustomer = router.post('/', async (req, res) => {
 	if (hip === '') hip = 0
 	if (knee === '') knee = 0
 	try {
-		
 	} catch (err) {
 		console.log(err)
 	}

@@ -3,6 +3,7 @@ import Select from 'react-select'
 import axios from 'axios'
 import Form from 'components/Form'
 import Input from 'components/Input'
+import Button from 'components/Button'
 import { useState, useEffect, useLayoutEffect } from 'react'
 import FileUpload from 'components/FileUpload'
 
@@ -67,6 +68,38 @@ const Home = () => {
 			}
 		})
 		setWaistcoatImage(fileObj)
+	}
+	const submitHandler = e => {
+		e.preventDefault()
+		const formData = new FormData()
+		formData.append('vendor', selectedVendorOption.value)
+		formData.append('customer', selectedCustomerOption.value)
+		formData.append('jacketDesc', jacketDesc)
+		formData.append('jacketPhoto', jacketImage.file)
+		formData.append('pantsDesc', pantsDesc)
+		formData.append('pantsPhoto', pantsImage.file)
+		formData.append('waistcoatDesc', waistcoatDesc)
+		formData.append('waistcoatPhoto', waistcoatImage.file)
+		axios
+			.post('/orders', formData, {
+				headers: {
+					'Content-Type': 'multipart/form-data',
+				},
+			})
+			.then(res => {
+				console.log(res)
+			})
+			.catch(err => {
+				console.log(err)
+			})
+		setSelectedVendorOption('')
+		setSelectedCustomerOption('')
+		setJacketDesc('')
+		setJacketImage(null)
+		setPantsDesc('')
+		setPantsImage(null)
+		setWaistcoatDesc('')
+		setWaistcoatImage(null)
 	}
 	const customStyles = {
 		option: (provided, state) => ({
@@ -140,49 +173,52 @@ const Home = () => {
 					placeholder="Select a Customer..."
 				/>
 			)}
-			<Form>
-				<Input
-					title="Jacket"
-					input={false}
-					placeholder="Jacket Desc"
-					value={jacketDesc}
-					name="jacketDesc"
-					changeHandler={changeJacketDescHandler}
-				/>
-				<FileUpload
-					fileHandler={pantsImageHandler}
-					file={jacketImage}
-					name="jacketPhoto"
-				/>
+			{selectedVendorOption && selectedCustomerOption && (
+				<Form submitHandler={submitHandler}>
+					<Input
+						title="Jacket"
+						input={false}
+						placeholder="Jacket Desc"
+						value={jacketDesc}
+						name="jacketDesc"
+						changeHandler={changeJacketDescHandler}
+					/>
+					<FileUpload
+						fileHandler={jacketImageHandler}
+						file={jacketImage}
+						name="jacketPhoto"
+					/>
 
-				<Input
-					title="Pants"
-					input={false}
-					placeholder="Pants Desc"
-					value={pantsDesc}
-					name="pantsDesc"
-					changeHandler={changePantsDescHandler}
-				/>
-				<FileUpload
-					fileHandler={jacketImageHandler}
-					file={pantsImage}
-					name="pantsPhoto"
-				/>
+					<Input
+						title="Pants"
+						input={false}
+						placeholder="Pants Desc"
+						value={pantsDesc}
+						name="pantsDesc"
+						changeHandler={changePantsDescHandler}
+					/>
+					<FileUpload
+						fileHandler={pantsImageHandler}
+						file={pantsImage}
+						name="pantsPhoto"
+					/>
 
-				<Input
-					title="Waistcoat"
-					input={false}
-					placeholder="Waistcoat Desc"
-					value={waistcoatDesc}
-					name="waistcoatDesc"
-					changeHandler={changeWaistcoatDescHandler}
-				/>
-				<FileUpload
-					fileHandler={waistcoatImageHandler}
-					file={waistcoatImage}
-					name="waistcoatPhoto"
-				/>
-			</Form>
+					<Input
+						title="Waistcoat"
+						input={false}
+						placeholder="Waistcoat Desc"
+						value={waistcoatDesc}
+						name="waistcoatDesc"
+						changeHandler={changeWaistcoatDescHandler}
+					/>
+					<FileUpload
+						fileHandler={waistcoatImageHandler}
+						file={waistcoatImage}
+						name="waistcoatPhoto"
+					/>
+					<Button type="Submit" label="Submit" />
+				</Form>
+			)}
 		</Layout>
 	)
 }

@@ -143,137 +143,129 @@ const CreateCustomer = () => {
 				onChange={changeVendorHandler}
 				placeholder="Select a Vendor..."
 			/>
-			<Form submitHandler={createCustomerHandler}>
-				<Input
-					type="text"
-					placeholder="A Customer Name"
-					value={customer}
-					changeHandler={getCustomerHandler}
-					name="customerName"
-				/>
-				{selectedVendor && (
-					<>
+			{selectedVendor && (
+				<Form submitHandler={createCustomerHandler}>
+					<Input
+						type="text"
+						placeholder="A Customer Name"
+						value={customer}
+						changeHandler={getCustomerHandler}
+						name="customerName"
+					/>
+
+					<Input
+						input={true}
+						type="number"
+						placeholder="Customer Size"
+						value={customerSize}
+						name="customerSize"
+						changeHandler={changeCustomerSizeHandler}
+					/>
+					<div className={styles.grid}>
 						<Input
 							input={true}
 							type="number"
-							placeholder="Customer Size"
-							value={customerSize}
-							name="customerSize"
-							changeHandler={changeCustomerSizeHandler}
+							placeholder="Jacket Length"
+							value={jacketLength}
+							name="jacketLength"
+							changeHandler={e => setJacketLength(e.target.value)}
+							step="0.01"
 						/>
-						<div className={styles.grid}>
-							<Input
-								input={true}
-								type="number"
-								placeholder="Jacket Length"
-								value={jacketLength}
-								name="jacketLength"
-								changeHandler={e =>
-									setJacketLength(e.target.value)
-								}
-								step="0.01"
-							/>
-							<Input
-								input={true}
-								type="number"
-								placeholder="Chest"
-								value={chest}
-								name="chest"
-								changeHandler={e => setChest(e.target.value)}
-								step="0.01"
-							/>
-							<Input
-								input={true}
-								type="number"
-								placeholder="Jacket Waist"
-								value={jacketWaist}
-								name="jacketWaist"
-								changeHandler={e =>
-									setJacketWaist(e.target.value)
-								}
-								step="0.01"
-							/>
-							<Input
-								input={true}
-								type="number"
-								placeholder="Shoulder"
-								value={shoulder}
-								name="shoulder"
-								changeHandler={e => setShoulder(e.target.value)}
-								step="0.01"
-							/>
-							<Input
-								input={true}
-								type="number"
-								placeholder="Sleeve"
-								value={sleeve}
-								name="sleeve"
-								changeHandler={e => setSleeve(e.target.value)}
-								step="0.01"
-							/>
-							<Input
-								input={true}
-								type="number"
-								placeholder="Bicep"
-								value={bicep}
-								name="bicep"
-								changeHandler={e => setBicep(e.target.value)}
-								step="0.01"
-							/>
-							<Input
-								input={true}
-								type="number"
-								placeholder="Crotch"
-								value={crotch}
-								name="crotch"
-								changeHandler={e => setCrotch(e.target.value)}
-								step="0.01"
-							/>
-							<Input
-								input={true}
-								type="number"
-								placeholder="Pants Waist"
-								value={pantsWaist}
-								name="pantsWaist"
-								changeHandler={e =>
-									setPantsWaist(e.target.value)
-								}
-								step="0.01"
-							/>
-							<Input
-								input={true}
-								type="number"
-								placeholder="Pants Length"
-								value={pantsLength}
-								name="pantsLength"
-								changeHandler={e =>
-									setPantsLength(e.target.value)
-								}
-								step="0.01"
-							/>
-							<Input
-								input={true}
-								type="number"
-								placeholder="Hip"
-								value={hip}
-								name="hip"
-								changeHandler={e => setHip(e.target.value)}
-								step="0.01"
-							/>
-							<Input
-								input={true}
-								type="number"
-								placeholder="Knee"
-								value={knee}
-								name="knee"
-								changeHandler={e => setKnee(e.target.value)}
-								step="0.01"
-							/>
-						</div>
-					</>
-				)}
-				<Button type="submit" label="Create Customer" />
-			</Form>
+						<Input
+							input={true}
+							type="number"
+							placeholder="Chest"
+							value={chest}
+							name="chest"
+							changeHandler={e => setChest(e.target.value)}
+							step="0.01"
+						/>
+						<Input
+							input={true}
+							type="number"
+							placeholder="Jacket Waist"
+							value={jacketWaist}
+							name="jacketWaist"
+							changeHandler={e => setJacketWaist(e.target.value)}
+							step="0.01"
+						/>
+						<Input
+							input={true}
+							type="number"
+							placeholder="Shoulder"
+							value={shoulder}
+							name="shoulder"
+							changeHandler={e => setShoulder(e.target.value)}
+							step="0.01"
+						/>
+						<Input
+							input={true}
+							type="number"
+							placeholder="Sleeve"
+							value={sleeve}
+							name="sleeve"
+							changeHandler={e => setSleeve(e.target.value)}
+							step="0.01"
+						/>
+						<Input
+							input={true}
+							type="number"
+							placeholder="Bicep"
+							value={bicep}
+							name="bicep"
+							changeHandler={e => setBicep(e.target.value)}
+							step="0.01"
+						/>
+						<Input
+							input={true}
+							type="number"
+							placeholder="Crotch"
+							value={crotch}
+							name="crotch"
+							changeHandler={e => setCrotch(e.target.value)}
+							step="0.01"
+						/>
+						<Input
+							input={true}
+							type="number"
+							placeholder="Pants Waist"
+							value={pantsWaist}
+							name="pantsWaist"
+							changeHandler={e => setPantsWaist(e.target.value)}
+							step="0.01"
+						/>
+						<Input
+							input={true}
+							type="number"
+							placeholder="Pants Length"
+							value={pantsLength}
+							name="pantsLength"
+							changeHandler={e => setPantsLength(e.target.value)}
+							step="0.01"
+						/>
+						<Input
+							input={true}
+							type="number"
+							placeholder="Hip"
+							value={hip}
+							name="hip"
+							changeHandler={e => setHip(e.target.value)}
+							step="0.01"
+						/>
+						<Input
+							input={true}
+							type="number"
+							placeholder="Knee"
+							value={knee}
+							name="knee"
+							changeHandler={e => setKnee(e.target.value)}
+							step="0.01"
+						/>
+					</div>
+
+					<Button type="submit" label="Create Customer" />
+				</Form>
+			)}
 			<List
 				list={customerList}
 				title="Customers"

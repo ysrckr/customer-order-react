@@ -6,7 +6,9 @@ const Customer = require('../../db/models/Customer')
 // GET /api/v1/vendors	get all vendors
 const getVendors = router.get('/', async (req, res) => {
 	try {
-		const vendors = await Vendor.findAll()
+		const vendors = await Vendor.findAll({
+			include: [{ model: Customer }],
+		})
 		res.status(200).json({ vendors })
 	} catch (error) {
 		console.error(error)

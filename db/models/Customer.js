@@ -63,3 +63,5 @@ Customer.hasMany(Order, {
 	foreignKey: 'customerId',
 })
 Order.belongsTo(Customer)
+
+

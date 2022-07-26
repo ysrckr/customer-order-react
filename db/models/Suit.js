@@ -1,7 +1,6 @@
 const { DataTypes, Model } = require('sequelize')
 const { sequelize } = require('../config')
-const Order = require('./Order')
-const Customer = require('./Customer')
+
 
 class Suit extends Model {}
 
@@ -35,4 +34,5 @@ Suit.init(
 )
 
 module.exports = Suit
+
 
